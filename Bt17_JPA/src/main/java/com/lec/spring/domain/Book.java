@@ -25,7 +25,13 @@ public class Book extends BaseEntity{
     private Long id;
 
     private String name;
-    private String author;
+
+    private String category; // null 허용
+    private Long authorId; // null 허용
+    private Long publisherId;
+
+    @OneToOne
+    private BookReviewInfo bookReviewInfo;
 
 //    @Column(updatable = false)
 //    @CreatedDate

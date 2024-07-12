@@ -1,8 +1,6 @@
 package com.lec.spring.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,12 +14,16 @@ import lombok.ToString;
 public class BookReviewInfo extends BaseEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 1:1 연결하기 ( BookReviewInfo : Book )
-    private Long bookId; // FK 역할
+//    private Long bookId; // FK 역할
 
+
+    // BookReviewInfo : Book 은 1:1 관계
+    @OneToOne(optional = false)     // optional = false <= Book 은 절대 null 을 허용하지 않음.
+    private Book book;  // 자식 -> 부모 Entity 를 직접 참조
 
     // NULL 을 허용하면 wrapper 객체 사용
     // NULL 을 허용하지 않을거면 primitive 객체 사용 -> DDL 에 NOT NULL 부여됨
