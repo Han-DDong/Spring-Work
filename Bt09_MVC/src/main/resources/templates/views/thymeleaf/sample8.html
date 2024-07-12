@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SAMPLE 8</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+<body>
+    <h1>Attribute Values</h1>
+    <input value="${value1}"><br>
+    <input th:value="${value1}"><br>
+    <input th:attr="value=${value1}"><br>
+
+    <hr>
+
+    <!-- selected, checked, readonly, disabled ... 단독으로 사용하는 attribute -->
+    <select>
+        <option th:selected="${select1 == '최강'}">최강</option>
+        <option th:selected="${select1 == 'volvo'}">야구</option>
+        <option th:selected="${select1 == '유희관'}">유희관</option>
+    </select>
+
+</body>
+</html>

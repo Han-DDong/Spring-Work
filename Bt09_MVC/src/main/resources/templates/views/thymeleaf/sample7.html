@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SAMPLE7</title>
+</head>
+<body>
+    <h1>Link URL Expressions</h1>
+    <div><a href="http://localhost:8080/thymeleaf/sample1">sample1</a></div>
+    <div><a th:href="@{http://localhost:8080/thymeleaf/sample1}">sample1</a></div>
+    <div><a th:href="@{'http://localhost:8080' + '/thymeleaf' + '/sample1'}">sample1</a></div>
+    <hr>
+    <div><a th:href="@{/sample1}">sample1</a></div> <!-- http://localhost:8080/sample1 -->
+    <div><a th:href="@{~/sample1}">sample1</a></div>
+    <div><a th:href="@{/thymeleaf/sample1}">sample1</a></div>
+    <div><a th:href="@{~/thymeleaf/sample1}">sample1</a></div>
+
+    <hr>
+
+    <!-- url 이 queryString 값으로 넘어감 ➡️ http://localhost:8080/thymeleaf/sample1?p1=aaa&p2=bbb -->
+    <div><a th:href="@{/thymeleaf/sample1(p1='aaa', p2='bbb')}">sample1</a></div>
+
+    <hr>
+
+    <!-- 마지막 '/' 다음으로 붙는 링크로 생성됨 -->
+    <div><a th:href="@{${relativeURL}}">sample1</a></div>
+
+
+
+
+
+</body>
+</html>

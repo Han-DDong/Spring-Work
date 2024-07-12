@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample6</title>
+    <style>
+        table, th, td {
+            border : 1px solid black;
+            border-collapse: collapse;
+        }
+        table {width: 100%;}
+    </style>
+</head>
+<body>
+    <h1>/SAMPLE6</h1>
+
+    <h3>#temporals : java.time.* 객체</h3>
+    <div th:text="${now1}"></div>
+    <div th:text="${#temporals.format(now1)}"></div> <!-- format 값 지정안해주면 기본 포맷으로 나옴 -->
+    <div th:text="${#temporals.format(now1, 'yyyy-MM-dd HH:mm:ss')}"></div>
+    <div th:text="${#temporals.createNow()}"></div> <!-- 현재시간으로 temporals 를 생성해줌 -->
+
+    <br>
+    <hr>
+    <br>
+
+    <h3>#numbers.formatInteger</h3>
+    <div th:text="${price}"></div>
+    <div th:text="${#numbers.formatInteger(price, 3, 'COMMA')}"></div> <!-- 숫자 자리 단위로 , 찍어줌 -->
+    <div th:with="priceValue=2099.87654">
+        <div th:text="${priceValue}"></div>
+        <div th:text="${#numbers.formatInteger(priceValue, 3, 'COMMA')}"></div>
+        <div th:text="${#numbers.formatDecimal(priceValue, 5, 10, 'POINT')}"></div>  <!-- 02099.8765400000 -->
+        <div th:text="${#numbers.formatDecimal(priceValue, 5, 2, 'POINT')}"></div>  <!-- 02099.88 -->
+        <div th:text="${#numbers.formatDecimal(priceValue, 3, 'COMMA', 2, 'POINT')}"></div>  <!-- 2,099.88 -->
+    </div>
+
+    <br>
+    <hr>
+    <br>
+    <h2>#strings.replace & listSplit</h2>
+    <h3>#stings.replace</h3>
+    <div th:text="${title}"></div>
+    <div th:utext="${#strings.replace(title, 'sample', '<u>SPARTA</u>')}"></div>
+
+    <ul>
+        <h3>#strings.listSplit</h3>
+        <li th:each="str : ${#strings.listSplit(title, ' ')}" th:text="${str}"></li>
+    </ul>
+
+    <hr>
+
+    <h2>#lists</h2>
+    <div th:text="${options}"></div>
+    <div th:text="${#lists.size(options)}"></div>
+    <div th:text="${#lists.isEmpty(options)}"></div>
+    <div th:text="${#lists.contains(options, 'BBB')}"></div>
+    <div th:text="${#lists.sort(options)}"></div>  <!-- 오름차순 정렬된 결과 리턴 -->
+    <div th:text="${options}"></div> <!-- 원본 변화는 없음 -->
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

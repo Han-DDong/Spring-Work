@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.PostRepository">
+
+<!-- <insert id="" <- 에는 insert id 의 매서드의 이름 "save" 들어가야함 -->
+    <insert id="save" flushCache="true"
+            parameterType="com.lec.spring.domain.Post"
+            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <!-- useGeneratedKeys 는 INSERT 쿼리를 실행할 자동으로 생성된 키를 가져올지 여부를 묻는 것 -->
+        INSERT INTO t4_post
+            (subject, content, user)
+        VALUES
+            (#{subject}, #{content}, #{user})
+    </insert>
+
+    <update id="incViewCnt" flushCache="true">
+        UPDATE t4_post
+        SET viewcnt = viewcnt + 1
+        WHERE id = #{id}
+    </update>
+
+    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 하고, include 태그로 가져다 쓸수 있다 -->
+    <sql id="SELECT_BASE">
+        SELECT
+            id,
+            subject,
+            content,
+            viewcnt "viewCnt",
+            user,
+            regdate "regDate"
+        FROM
+            t4_post
+        WHERE
+            1 = 1
+    </sql>
+
+    <select id="findAll" resultType="com.lec.spring.domain.Post">
+       <include refid="SELECT_BASE"/>
+        ORDER BY id DESC
+    </select>
+
+    <select id="findById" resultType="com.lec.spring.domain.Post">
+        <include refid="SELECT_BASE"/>
+        <!--
+          SELECT 는 조회의 용도로 사용되기 때문에 flushCache="true" 를 써 줄 필요가 없음
+          flushCache 의 기본값은 false임.
+          -->
+#         SELECT
+#         id,
+#         subject,
+#         content,
+#         viewcnt "viewCnt",
+#         user,
+#         regdate "regDate"
+#         FROM
+#         t4_post
+#         WHERE
+#             1 = 1 <!-- 조건절 여러개 만들기 편함 -->
+            AND id = #{id}
+    </select>
+
+    <update id="update" flushCache="true"
+            parameterType="com.lec.spring.domain.Post">
+        UPDATE t4_post
+        SET subject = #{subject}, content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" flushCache="true"
+        parameterType="com.lec.spring.domain.Post">
+        DELETE FROM t4_post WHERE id = #{id}
+    </delete>
+
+</mapper>
