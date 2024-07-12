@@ -61,10 +61,21 @@ public class User extends BaseEntity{
 
     // User : UserHistory = 1 : N
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id") // Entity 가 어떤 컴럼으로 join 하게 될지 지정해준다.
+    @JoinColumn(name = "user_id" // Entity 가 어떤 컴럼으로 join 하게 될지 지정해준다.
                 // name = "user_id" : join 할 컬럼명 지정가능!
-                // UserHistory 의 user_id 란 컴럼으로 join
+                // UserHistory 의 user_id 란 컴럼으로 join.
+            , insertable = false, updatable = false
+            // User 에서 userHistories 값을 추가, 수정 하지 못하도록 하기 위해
+    )
+
+    @ToString.Exclude
     private List<UserHistory> userHistories = new ArrayList<>();   // NPE 방지
+
+    // User : Review = 1:N
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
 
 //    @PrePersist // INSERT 하기 전
 //    public void prePersist() {

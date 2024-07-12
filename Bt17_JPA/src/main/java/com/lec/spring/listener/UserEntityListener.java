@@ -37,9 +37,10 @@ public class UserEntityListener {
         User user = (User) o;
         // UserHistory 에 UPDATE 될 User 정보를 담아서 저장 (INSERT)
         UserHistory userHistory = new UserHistory();
-        userHistory.setUserId(user.getId());
+//        userHistory.setUserId(user.getId());
         userHistory.setName(user.getName());
         userHistory.setEmail(user.getEmail());
+        userHistory.setUser(user);
 
         userHistoryRepository.save(userHistory); // INSERT
     }

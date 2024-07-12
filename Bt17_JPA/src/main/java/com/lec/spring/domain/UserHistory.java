@@ -28,12 +28,15 @@ public class UserHistory extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "user_id")   // User 도메인의 @JoinColumn 으로 지정해준 user_id 와 연동됨
-    private Long userId; // user 의 id
+//    @Column(name = "user_id", insertable = false, updatable = false)   // User 도메인의 @JoinColumn 으로 지정해준 user_id 와 연동됨
+//    private Long userId; // user 의 id
 
     private String name; // User 의 name
-
     private String email; // User 의 email
+
+    @ManyToOne
+//    @ToString.Exclude
+    private User user;  // user_id 라는 컬럼으로 생성
 
 //    @CreatedDate
 //    private LocalDateTime createdAt;

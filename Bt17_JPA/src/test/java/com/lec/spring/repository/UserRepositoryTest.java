@@ -605,9 +605,9 @@ class UserRepositoryTest {
         user.setEmail("hanjw@naver.com");   // User 에 SELECT + UPDATE, UserHistory 에 INSERT
         userRepository.save(user);
 
-        // userHistoryRepository.findAll().forEach(System.out::println);
+         userHistoryRepository.findAll().forEach(System.out::println);
 
-        System.out.println("👉".repeat(50));
+        System.out.println("❗️".repeat(50));
 
         // 특정 userId 로 UserHistory 조회
 //        Long userId = userRepository.findByEmail("hanjw@naver.com").getId();
@@ -616,6 +616,12 @@ class UserRepositoryTest {
 
         List<UserHistory> result = userRepository.findByEmail("hanjw@naver.com").getUserHistories();
         result.forEach(System.out::println);    // LazyInitializationException 발생!
+
+
+        System.out.println("🐯".repeat(50));
+
+        System.out.println(userHistoryRepository.findAll().get(0).getUser());
+
 
         System.out.println("\n------------------------------------------------------------\n");
     }

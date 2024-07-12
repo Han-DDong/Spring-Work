@@ -1,0 +1,41 @@
+package com.lec.spring.config;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
+
+    @Override
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        System.out.println("### 로그아웃 성공 : CustomLogoutSuccessHandler 동작 ###");
+
+        // 로그아웃 시간 남기기
+        LocalDateTime logoutTime = LocalDateTime.now();
+        System.out.println("로그아웃시간: " + logoutTime);
+
+        // 사용시간 (로그인 ~ 로그아웃) 계산해보기
+        // getAttribute 나 setAttribute -> get 이나 set 이 붙으면 기본적으로 오브젝트타입이다!
+        LocalDateTime loginTime = (LocalDateTime) request.getSession().getAttribute("loginTime");
+        if (loginTime != null) {
+            long seconds = loginTime.until(logoutTime, ChronoUnit.SECONDS);
+            System.out.println("사용시간: " + seconds + "초");
+        }
+        request.getSession().invalidate(); // session invalidate 수동으로 직적 설정
+
+        String redirectUrl = "/user/login?logoutHandler";
+
+        // return url 이 있는 경우 logout 하고 해당 url 로 redirect
+        if (request.getParameter("ret_url") != null) {
+            redirectUrl = request.getParameter("ret_url");
+        }
+
+        response.sendRedirect(redirectUrl); // redirect 를 수동으로 해주는 코드
+    }
+}

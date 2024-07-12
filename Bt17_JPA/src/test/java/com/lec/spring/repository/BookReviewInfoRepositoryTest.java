@@ -108,7 +108,7 @@ class BookReviewInfoRepositoryTest {
         Book book = new Book();
         book.setName("JPA 완전정복");
         book.setAuthorId(1L);
-        book.setPublisherId(1L);
+//        book.setPublisherId(1L);
 
         // save() 의 리턴값은 영속화된 Entity 다.
         return bookRepository.save(book); // Book 에 INSERT
