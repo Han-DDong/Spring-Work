@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -56,6 +58,13 @@ public class User extends BaseEntity{
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
+
+    // User : UserHistory = 1 : N
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id") // Entity 가 어떤 컴럼으로 join 하게 될지 지정해준다.
+                // name = "user_id" : join 할 컬럼명 지정가능!
+                // UserHistory 의 user_id 란 컴럼으로 join
+    private List<UserHistory> userHistories = new ArrayList<>();   // NPE 방지
 
 //    @PrePersist // INSERT 하기 전
 //    public void prePersist() {

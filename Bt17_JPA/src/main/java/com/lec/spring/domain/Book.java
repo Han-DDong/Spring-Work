@@ -30,7 +30,8 @@ public class Book extends BaseEntity{
     private Long authorId; // null 허용
     private Long publisherId;
 
-    @OneToOne
+    @OneToOne(mappedBy = "book")    // 해당 Entity 의 테이블에선 연관키를 가지지 않는다.
+    @ToString.Exclude   // Lombok 의 ToString 에서 배제 (양방향에서의 순환참조 때문)
     private BookReviewInfo bookReviewInfo;
 
 //    @Column(updatable = false)

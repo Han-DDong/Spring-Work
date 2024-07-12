@@ -2,6 +2,7 @@ package com.lec.spring.repository;
 
 import com.lec.spring.domain.Gender;
 import com.lec.spring.domain.User;
+import com.lec.spring.domain.UserHistory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -583,6 +584,44 @@ class UserRepositoryTest {
 
         System.out.println("\n------------------------------------------------------------\n");
     }
+
+
+    @Test
+    void userRelationTest() {
+        System.out.println("\n-- TEST#userRelationTest() ---------------------------------------------");
+
+        User user = new User();
+        user.setName("David");
+        user.setEmail("david@reddragon.com");
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);  // User 에 INSERT, UserHistory 에 INSERT
+
+        user.setName("정우");
+        userRepository.save(user);  // User 에 UPDATE, UserHistory 에 INSERT
+
+        System.out.println("👉".repeat(50));
+
+        user.setEmail("hanjw@naver.com");   // User 에 SELECT + UPDATE, UserHistory 에 INSERT
+        userRepository.save(user);
+
+        // userHistoryRepository.findAll().forEach(System.out::println);
+
+        System.out.println("👉".repeat(50));
+
+        // 특정 userId 로 UserHistory 조회
+//        Long userId = userRepository.findByEmail("hanjw@naver.com").getId();
+//        List<UserHistory> result = userHistoryRepository.findByUserId(userId);
+//        result.forEach(System.out::println);
+
+        List<UserHistory> result = userRepository.findByEmail("hanjw@naver.com").getUserHistories();
+        result.forEach(System.out::println);    // LazyInitializationException 발생!
+
+        System.out.println("\n------------------------------------------------------------\n");
+    }
+
+
+
 
 
 

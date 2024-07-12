@@ -91,6 +91,13 @@ class BookReviewInfoRepositoryTest {
 
         System.out.println(">>> " + result);
 
+        System.out.println("*".repeat(50));
+        // 부모 -> 자식 조회하기
+        // Book -> BookReviewInfo
+        BookReviewInfo result2 =
+            bookRepository.findById(1L).orElseThrow(RuntimeException::new).getBookReviewInfo();
+        System.out.println(">>> " + result2);
+
         System.out.println("\n------------------------------------------------------------\n");
     }
 
