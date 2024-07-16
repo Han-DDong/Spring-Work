@@ -34,7 +34,7 @@ public class JpaBoardTest {
     public void init() {
         System.out.println("[init]");
 
-        // Authotity 생성
+        // Authority 생성
         System.out.println("\nAuthority 생성 " + "-".repeat(20));
         Authority auth_member = Authority.builder()
                 .name("ROLE_MEMBER")

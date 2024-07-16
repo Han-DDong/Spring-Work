@@ -1,5 +1,6 @@
 package com.lec.spring.repository;
 
+import com.lec.spring.domain.Address;
 import com.lec.spring.domain.Gender;
 import com.lec.spring.domain.User;
 import com.lec.spring.domain.UserHistory;
@@ -625,6 +626,60 @@ class UserRepositoryTest {
 
         System.out.println("\n------------------------------------------------------------\n");
     }
+
+    //------------------------------------------------------------------
+    // Embedded 테스트
+    @Test
+    void embededTest1(){
+
+        User user = new User();
+        user.setName("부리부리");
+        user.setHomeAddress(new Address("서울", "관악구", "난곡로", "08858"));
+        user.setCompanyAddress(new Address("서울", "강남구", "제일비전타워13층", "12345"));
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        // UserHistory
+        System.out.println("🎃".repeat(60));
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+    }
+
+    // embed 된 Address 값이 Null 이라면 어떻게 될까?
+    @Test
+    void embededTest2(){
+
+        User user1 = new User();
+        user1.setName("부리부리");
+        user1.setHomeAddress(new Address("서울", "관악구", "난곡로", "08858"));
+        user1.setCompanyAddress(new Address("서울", "강남구", "제일비전타워13층", "12345"));
+        userRepository.save(user1);
+
+        User user2 = new User();
+        user2.setName("부리");
+        user2.setHomeAddress(null); // Address 가 null 인 경우
+        user2.setCompanyAddress(null);
+        userRepository.save(user2);
+
+        User user3 = new User();
+        user3.setName("부");
+        user3.setHomeAddress(new Address()); // Address 가 empty 인 경우
+        user3.setCompanyAddress(new Address());
+        userRepository.save(user3);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        // UserHistory
+        System.out.println("🎃".repeat(60));
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        // DB에 저장된 내용 확인
+        userRepository.findAllRowRecord().forEach(a -> System.out.println(a.entrySet()));
+
+    }
+
 
 
 
