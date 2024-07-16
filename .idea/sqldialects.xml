@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/Bt16_MyBatis/ERD/t4_web_data.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/Bt17_JPA/src/test/resources/data.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/Bt50_Board/ERD/t5_web.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/Bt50_Board/ERD/t5_web_data.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/Bt50_Board/ERD/t5_web_drop.sql" dialect="MySQL" />
