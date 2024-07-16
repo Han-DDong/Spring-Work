@@ -39,7 +39,7 @@ public class User extends BaseEntity {
 
     // fetch 기본값
     // @OneToMany, @ManyToMany -> FetchType.Lazy
-    // @ManyToONe, @OneToOne -> FetchType.EAGER
+    // @ManyToOne, @OneToOne -> FetchType.EAGER
     @ManyToMany(fetch = FetchType.EAGER) // <- 유저를 불러올 때 권한도 같이 불러옴
     @ToString.Exclude
     @JsonIgnore
